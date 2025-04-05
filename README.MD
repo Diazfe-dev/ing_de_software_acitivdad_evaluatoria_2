@@ -67,3 +67,28 @@ Lo correcto seria  separa el comportamiento en itnerfaces adecuadas y implementa
 - Crear la clase Avestruz que heredara de Pajaro
 
 Asi logramos que cada clase hija respete el contrato de la clase base.
+
+#### Princpio de Segregacion de Interfaces (ISP)
+Robert C Martin sobre el principio de segregacion de interfaces:
+***Ningun cliente debe verse forzado a depender de interfaces que no utiliza.***
+Que significa esto en la practica?
+Significa que es mejor tener interfaces pequeñas y especificas que una interfaz grande y generica.
+Las clases no deberian tener que implementar todos los metodos que no necesita.
+
+#### Ejemplo:
+Supongamos que tenemos que definir tres metodos en una interfaz llamada ***Printer***, ***"Print", "Scan" y "Fax".***
+A simple vista parece que son tres metodo que cualquier impresora puede tener.
+Si definimos una impresora barata que solamente pueda imprimir. Y heredamos la interfa Printe.
+Estariamos violando el principio de segregacion de interfaces. Ya que estariamos obligados a implementar Scan y Fax. Por mas que no lo utilicemos.
+
+Lo correcto seria separar las interfaces en metodos especificos.
+- Crear la interfaz Printer.
+- Crear la interfaz Scanner.
+- Crear la interfaz Fax.
+- Crear la clase hija implementando los metodos que necesitamos.
+- Crear la clase ImpresoraBasica que hereda de la clase Printer.
+- Crear la clase FaxImpresora que hereda de la clase Impresora y la clase Fax.
+- Crear la clase ImpresoraMultifuncional que hereda de la clase Impresora, Scanner y Fax.
+
+Asi lograriamos tener clases mas simples y coherentes.
+Evitando le codigo innecesario y facilitando la reutilizacion y extension.

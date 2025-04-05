@@ -21,6 +21,13 @@
 #include "liskov_sustitution/eagle.cpp"
 #include "liskov_sustitution/ostrich.cpp"
 
+#include "interface_segregation/basic_printer.hpp"
+#include "interface_segregation/basic_scanner.hpp"
+#include "interface_segregation/basic_fax.hpp"
+#include "interface_segregation/basic_printer.cpp"
+#include "interface_segregation/fax_printer.cpp"
+#include "interface_segregation/multifunction_printer.cpp"
+
 int main()
 {
     // SRP
@@ -79,7 +86,34 @@ int main()
     flyingBird->fly();
 
     std::cout << "\n";
-    
+
+    //================================================================================
+
+    // LSP
+    //================================================================================
+    std::cout << "Principio de sustitucion de liskov.";
+    std::cout << "\n";
+
+    std::cout << "Impresora basica" << std::endl;
+    std::cout << "\n";
+    BasicPrinterImpl *basicPrinter = new BasicPrinterImpl();
+    basicPrinter->print();
+    std::cout << "\n";
+
+    std::cout << "Impresora con fax" << std::endl;
+    std::cout << "\n";
+    FaxPrinterImpl *faxPrinter = new FaxPrinterImpl();
+    faxPrinter->print();
+    faxPrinter->fax();
+    std::cout << "\n";
+
+    std::cout << "Impresora multifuncion" << std::endl;
+    std::cout << "\n";
+    MultifunctionPrinterImpl *multifunctionPrinter = new MultifunctionPrinterImpl();
+    multifunctionPrinter->print();
+    multifunctionPrinter->Scan();
+    multifunctionPrinter->fax();
+    std::cout << "\n";
     //================================================================================
 
     return 0;
