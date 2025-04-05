@@ -44,3 +44,26 @@ Lo correcto seria aplicar polimorfismo para que el area de figuras pueda ser cal
 - Crear una clase Circle que hereda de Shape que implemente la funcion area con su formula correspondiente.
 
 Asi a medida que vamos agregando nuevos tipos de figuras, podemos agregar nuevas clases que hereden de Shape, sin modificar el codigo existente sino extendiendolo.
+
+
+#### Principio de Sustitucion de Liskov (LSP)  
+Barbara Liskov sobre el principio de sustitucion de liskov:
+***Si S es una subclase de T, entonces los objetos de tipo T pueden ser reemplazados por objetos de tipo S sin alterar el comportamiento de la aplicaicon.***
+
+Que significa esto en la practica?
+Si tenes una clase base y una clase hija, la hija debe poder usarse en lugar de la clase base sin romper el programa.
+Esto se logra gracias a la herencia de clases.
+
+#### Ejemplo:
+Supongamos que tenemos una clase base ***Pajaro***, que implementa el metodo volar.
+Despues creamos una clase hija ***Avestruz*** que hereda de ***Pajaro***.
+Sabemos que las avestruzes no peuden volar, pero le estamos obligando a implementar el metodo volar.
+Esto viola LSP. Porque Avestruz no deberia poder volar. No deberia ser tratada como Pajaro que si puede volar. La jerarquia de clases esta mal pensada.
+
+Lo correcto seria  separa el comportamiento en itnerfaces adecuadas y implementar las clases con esas interfaces.
+- Crear la interfaz Pajaro que servira como clase base. Sabemos que todos los pajaros ponen huevos. Pero no todos los pajaros pueden volar.  
+- Crear la interfaz PajaroVolador que extenderá la clase Pajaro. Clase base de la que heredaran todos los pajaros que pueden volar. E implementar el metodo volar. 
+- Crear la clase Aguila que heredara de PajaroVolador.
+- Crear la clase Avestruz que heredara de Pajaro
+
+Asi logramos que cada clase hija respete el contrato de la clase base.
