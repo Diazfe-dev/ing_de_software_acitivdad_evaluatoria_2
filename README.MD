@@ -1,6 +1,13 @@
 #### Compilacion: 
+Bash/Terminal
 ```
 g++ src/main.cpp -o bin/program
+```
+
+#### Ejecución:
+Bash/Terminal
+``` 
+./bin/program    
 ```
 
 ### Principio de responsabilidad unica. (SRP)
