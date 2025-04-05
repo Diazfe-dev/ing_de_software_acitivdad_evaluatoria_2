@@ -28,13 +28,18 @@
 #include "interface_segregation/fax_printer.cpp"
 #include "interface_segregation/multifunction_printer.cpp"
 
+#include "dependency_inversion/user_repository.hpp"
+#include "dependency_inversion/user_service.hpp"
+#include "dependency_inversion/user_service.cpp"
+#include "dependency_inversion/my_sql_user_repository.cpp"
+#include "dependency_inversion/postgre_sql_user_repository.cpp"
+
 int main()
 {
-    // SRP
-    //================================================================================
-
-    std::cout << "Principio de responsabilidad unica.";
-    std::cout << "\n";
+    std::cout << "\n"
+              << std::endl;
+    std::cout << "Principio de responsabilidad unica." << std::endl;
+    std::cout << "================================================================================" << std::endl;
 
     Report *report = new ReportImpl("Reporte de prueba", "Este es un reporte de prueba");
     Printer *printer = new PrinterImpl();
@@ -42,16 +47,12 @@ int main()
 
     printer->print(report);
     saveToFile->saveToFile(report, "reporte.txt");
+    std::cout << "================================================================================" << std::endl;
 
-    std::cout << "\n";
-
-    //================================================================================
-
-    // OCP
-    //================================================================================
-
-    std::cout << "Principio de abierto-cerrado.";
-    std::cout << "\n";
+    std::cout << "\n"
+              << std::endl;
+    std::cout << "Principio de abierto-cerrado." << std::endl;
+    std::cout << "================================================================================" << std::endl;
 
     AreaCalculator *areaCalculator = new AreaCalculatorImpl();
     Shape *triangle = new Triangle(10, 20);
@@ -59,14 +60,12 @@ int main()
 
     Shape *circle = new Circle(5);
     std::cout << "El area del circulo es:" << areaCalculator->calculateArea(circle) << std::endl;
+    std::cout << "================================================================================" << std::endl;
 
-    std::cout << "\n";
-    //================================================================================
-
-    // LSP
-    //================================================================================
-    std::cout << "Principio de sustitucion de liskov.";
-    std::cout << "\n";
+    std::cout << "\n"
+              << std::endl;
+    std::cout << "Principio de sustitución de Liskov." << std::endl;
+    std::cout << "================================================================================" << std::endl;
 
     std::cout << "Avestruz" << std::endl;
     Bird *bird = new Ostrich();
@@ -84,15 +83,12 @@ int main()
     FlyingBird *flyingBird = new Eagle();
     flyingBird->layEggs();
     flyingBird->fly();
+    std::cout << "================================================================================" << std::endl;
 
-    std::cout << "\n";
-
-    //================================================================================
-
-    // LSP
-    //================================================================================
-    std::cout << "Principio de sustitucion de liskov.";
-    std::cout << "\n";
+    std::cout << "\n"
+              << std::endl;
+    std::cout << "Principio de Segregacion de Interfaces." << std::endl;
+    std::cout << "================================================================================" << std::endl;
 
     std::cout << "Impresora basica" << std::endl;
     std::cout << "\n";
@@ -113,9 +109,32 @@ int main()
     multifunctionPrinter->print();
     multifunctionPrinter->Scan();
     multifunctionPrinter->fax();
-    std::cout << "\n";
-    //================================================================================
+    std::cout << "================================================================================" << std::endl;
 
+    std::cout << "\n"
+              << std::endl;
+    std::cout << "Principio de Inversion de Dependencias." << std::endl;
+    std::cout << "================================================================================" << std::endl;
+
+    UserRepository *mySqlUserRepository = new MysqlUserRepository();
+    UserRepository *postgreSqlUserRepository = new PostgreSQLUserRepository();
+    UserService *userServiceWithMySql = new UserServiceImpl(mySqlUserRepository);
+    UserService *userServiceWithPostgreSql = new UserServiceImpl(postgreSqlUserRepository);
+
+    userServiceWithMySql->saveUser("Test user", "test@test.com");
+    std::cout << "\n";
+    std::cout << userServiceWithMySql->getUser("test@test.com") << std::endl;
+    std::cout << "\n";
+
+    userServiceWithPostgreSql->saveUser("Test user", "test@test.com");
+    std::cout << "\n";
+    std::cout << userServiceWithPostgreSql->getUser("test@test.com") << std::endl;
+    std::cout << "================================================================================" << std::endl;
+
+    std::cout << "\n";
+    std::cout << "\n";
+    std::cout << "Fin del programa." << std::endl;
+    std::cout << "Leer README.MD para mas información. Saludos!" << std::endl;
     return 0;
 }
 

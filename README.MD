@@ -3,7 +3,7 @@
 g++ src/main.cpp -o bin/program
 ```
 
-#### Principio de responsabilidad unica. (SRP)
+### Principio de responsabilidad unica. (SRP)
 Robert C Martin sobre el principio de responsabilidad unica:
 ***Una clase debe tener una, y solo una razon para cambiar.***
 
@@ -24,7 +24,7 @@ Lo correcto seria dividir esta clase en tres clases:
 - ReportPrinter: Clase que imprime el reporte en pantalla.
 - ReportSaver: Clase que guarda el reporte en un archivo.
 
-#### Principio de Abierto-Cerrado (OCP)
+### Principio de Abierto-Cerrado (OCP)
 Bertrand Meyer sobre el principio de abierto-cerrado:
 ***El software debe estar abierto para la extension pero cerrado para la modificacion.***
 Que significa esto?
@@ -46,7 +46,7 @@ Lo correcto seria aplicar polimorfismo para que el area de figuras pueda ser cal
 Asi a medida que vamos agregando nuevos tipos de figuras, podemos agregar nuevas clases que hereden de Shape, sin modificar el codigo existente sino extendiendolo.
 
 
-#### Principio de Sustitucion de Liskov (LSP)  
+### Principio de Sustitucion de Liskov (LSP)  
 Barbara Liskov sobre el principio de sustitucion de liskov:
 ***Si S es una subclase de T, entonces los objetos de tipo T pueden ser reemplazados por objetos de tipo S sin alterar el comportamiento de la aplicaicon.***
 
@@ -68,7 +68,7 @@ Lo correcto seria  separa el comportamiento en itnerfaces adecuadas y implementa
 
 Asi logramos que cada clase hija respete el contrato de la clase base.
 
-#### Princpio de Segregacion de Interfaces (ISP)
+### Princpio de Segregacion de Interfaces (ISP)
 Robert C Martin sobre el principio de segregacion de interfaces:
 ***Ningun cliente debe verse forzado a depender de interfaces que no utiliza.***
 Que significa esto en la practica?
@@ -89,6 +89,30 @@ Lo correcto seria separar las interfaces en metodos especificos.
 - Crear la clase ImpresoraBasica que hereda de la clase Printer.
 - Crear la clase FaxImpresora que hereda de la clase Impresora y la clase Fax.
 - Crear la clase ImpresoraMultifuncional que hereda de la clase Impresora, Scanner y Fax.
+
+Asi lograriamos tener clases mas simples y coherentes.
+Evitando le codigo innecesario y facilitando la reutilizacion y extension.
+
+### Principio de inversion de dependencias (IDP)
+Robert C Martin sobre el principio de inversion de dependencias:
+***Los modulos de alto nivel no deben depender de modulos de bajo nivel. Ambos deben depender de abstracciones. Las abstracciones no deben depender de los detalles. Los detalles deben depender de las abstracciones.***
+
+Que significa esto en la practica?
+Que en lugar de que las clases de "arriba" (las mas importantes) dependan directamente de implementaciones concretas, deben depender de interfaces o abstracciones.
+Y las implementaciones reales (de bajo nivel) deben acoplarse a esas interfaces y no al reves.
+
+#### Ejemplo: 
+Supongamos que queremos crear un servicio llamado UserService. Que se encargara de gestionar usuarios.
+En UserService queremos acceder a la base de datos para guardar y recuperar datos.
+Y acoplamos directamente a la clase el repositorio MySqlDatabase.
+UserService dependende directamente de la clase MySqlDatabase, si despues queremos cambiar de gestor de bases de datos a PostgreSQL, tendremos que modificar la clase UserService.
+Eviola el principio de inversion de dependencias.
+
+Lo correcto seria separar las dependencias en clases abstractas.
+- Crear la interfaz UserRepository con los metodos que necesita UserService.
+- Crear la clase UserService que hereda de UserRepository.
+- Crear la clase MySqlUserRepository que hereda de UserRepository.
+- Crear la clase PostgreSQLUserRepository que hereda de UserRepository.
 
 Asi lograriamos tener clases mas simples y coherentes.
 Evitando le codigo innecesario y facilitando la reutilizacion y extension.
